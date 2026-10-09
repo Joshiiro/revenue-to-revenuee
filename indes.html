@@ -1,0 +1,3221 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>R2R — Revenue to Revenue</title>
+
+<meta
+    name="description"
+    content="R2R t’aide à transformer tes idées en sources de revenus en ligne."
+>
+
+<meta name="theme-color" content="#6C4CF1">
+
+<style>
+    :root {
+        --primary: #6C4CF1;
+        --primary-dark: #5638D8;
+        --primary-light: #8B72FF;
+
+        --background: #08080C;
+        --surface: #101016;
+        --surface-2: #15151D;
+        --surface-3: #1B1B25;
+
+        --border: rgba(255,255,255,.09);
+
+        --text: #FFFFFF;
+        --text-secondary: #A6A6B2;
+        --text-muted: #6E6E7A;
+
+        --success: #39D98A;
+        --warning: #FFB547;
+        --danger: #FF5C77;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: Inter, Arial, Helvetica, sans-serif;
+        background: var(--background);
+        color: var(--text);
+        line-height: 1.5;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+        font: inherit;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    /* =====================================
+       LANDING NAVBAR
+    ===================================== */
+
+    .navbar {
+        width: 100%;
+        padding: 20px 6%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+
+        background: rgba(8,8,12,.82);
+        backdrop-filter: blur(18px);
+
+        border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: -1px;
+    }
+
+    .logo span {
+        color: var(--text-muted);
+        font-size: 13px;
+        font-weight: 500;
+        margin-left: 5px;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+    }
+
+    .nav-links a {
+        color: var(--text-secondary);
+        font-size: 14px;
+    }
+
+    .nav-links a:hover {
+        color: white;
+    }
+
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* =====================================
+       BUTTONS
+    ===================================== */
+
+    .btn {
+        border: 0;
+        border-radius: 11px;
+        padding: 12px 18px;
+        font-weight: 700;
+        transition: .2s ease;
+    }
+
+    .btn-primary {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 10px 30px rgba(108,76,241,.22);
+    }
+
+    .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background: var(--surface-2);
+        color: white;
+        border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+        background: var(--surface-3);
+    }
+
+    .btn-ghost {
+        background: transparent;
+        color: var(--text-secondary);
+    }
+
+    .btn-danger {
+        background: rgba(255,92,119,.1);
+        color: var(--danger);
+        border: 1px solid rgba(255,92,119,.15);
+    }
+
+    /* =====================================
+       HERO
+    ===================================== */
+
+    .hero {
+        min-height: 90vh;
+        padding: 120px 6% 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: "";
+        position: absolute;
+
+        width: 650px;
+        height: 650px;
+
+        background: rgba(108,76,241,.18);
+
+        filter: blur(130px);
+        border-radius: 50%;
+
+        top: 5%;
+        left: 50%;
+
+        transform: translateX(-50%);
+    }
+
+    .hero-content {
+        max-width: 900px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        padding: 8px 14px;
+
+        border-radius: 999px;
+
+        background: rgba(108,76,241,.1);
+        border: 1px solid rgba(108,76,241,.25);
+
+        color: #C8BFFF;
+
+        font-size: 13px;
+
+        margin-bottom: 28px;
+    }
+
+    .badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--primary-light);
+        box-shadow: 0 0 12px var(--primary-light);
+    }
+
+    .hero h1 {
+        font-size: clamp(52px, 9vw, 100px);
+        line-height: .92;
+        letter-spacing: -6px;
+        margin-bottom: 30px;
+    }
+
+    .gradient-text {
+        background: linear-gradient(
+            90deg,
+            #FFFFFF,
+            #A996FF
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+        max-width: 650px;
+        margin: auto;
+        color: var(--text-secondary);
+        font-size: 18px;
+        margin-bottom: 38px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    /* =====================================
+       SECTIONS
+    ===================================== */
+
+    section {
+        padding: 100px 6%;
+    }
+
+    .section-header {
+        max-width: 720px;
+        margin-bottom: 50px;
+    }
+
+    .section-label {
+        color: var(--primary-light);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .section-title {
+        font-size: clamp(34px,5vw,58px);
+        line-height: 1;
+        letter-spacing: -3px;
+        margin-bottom: 18px;
+    }
+
+    .section-description {
+        color: var(--text-secondary);
+        font-size: 17px;
+    }
+
+    /* =====================================
+       FEATURES
+    ===================================== */
+
+    .features {
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 16px;
+    }
+
+    .feature-card {
+        padding: 30px;
+        min-height: 210px;
+
+        background: var(--surface);
+        border: 1px solid var(--border);
+
+        border-radius: 18px;
+
+        transition: .25s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(108,76,241,.35);
+    }
+
+    .feature-number {
+        color: var(--text-muted);
+        margin-bottom: 45px;
+        font-size: 13px;
+    }
+
+    .feature-card h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .feature-card p {
+        color: var(--text-secondary);
+        font-size: 14px;
+    }
+
+    /* =====================================
+       AUTH
+    ===================================== */
+
+    .auth-screen {
+        min-height: 100vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 30px;
+
+        background:
+            radial-gradient(
+                circle at 50% 20%,
+                rgba(108,76,241,.15),
+                transparent 45%
+            ),
+            var(--background);
+    }
+
+    .auth-card {
+        width: 100%;
+        max-width: 440px;
+
+        background: rgba(16,16,22,.95);
+
+        border: 1px solid var(--border);
+
+        border-radius: 22px;
+
+        padding: 38px;
+
+        box-shadow: 0 30px 100px rgba(0,0,0,.45);
+    }
+
+    .auth-logo {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 900;
+        margin-bottom: 8px;
+    }
+
+    .auth-subtitle {
+        text-align: center;
+        color: var(--text-secondary);
+        margin-bottom: 30px;
+    }
+
+    .auth-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        padding: 4px;
+
+        background: var(--surface-2);
+
+        border-radius: 11px;
+
+        margin-bottom: 25px;
+    }
+
+    .auth-tab {
+        padding: 10px;
+        border: 0;
+        border-radius: 8px;
+
+        background: transparent;
+        color: var(--text-muted);
+
+        font-weight: 700;
+    }
+
+    .auth-tab.active {
+        background: var(--surface-3);
+        color: white;
+    }
+
+    .form-group {
+        margin-bottom: 17px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 7px;
+
+        font-size: 13px;
+        color: var(--text-secondary);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+
+        padding: 13px 14px;
+
+        border-radius: 10px;
+
+        background: #0B0B10;
+
+        border: 1px solid var(--border);
+
+        color: white;
+
+        outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(108,76,241,.1);
+    }
+
+    .auth-submit {
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .auth-message {
+        min-height: 20px;
+        text-align: center;
+        color: var(--danger);
+        font-size: 13px;
+        margin-top: 12px;
+    }
+
+    /* =====================================
+       DASHBOARD
+    ===================================== */
+
+    .dashboard-app {
+        min-height: 100vh;
+        background: #09090D;
+    }
+
+    .dashboard-layout {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        width: 250px;
+
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+
+        padding: 24px 16px;
+
+        background: #0D0D13;
+
+        border-right: 1px solid var(--border);
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar-logo {
+        padding: 8px 12px 30px;
+        font-size: 24px;
+        font-weight: 900;
+    }
+
+    .sidebar-logo span {
+        color: var(--primary-light);
+    }
+
+    .sidebar-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .sidebar-item {
+        width: 100%;
+
+        padding: 12px;
+
+        border-radius: 10px;
+
+        border: 0;
+
+        background: transparent;
+
+        color: var(--text-secondary);
+
+        text-align: left;
+
+        transition: .2s;
+    }
+
+    .sidebar-item:hover,
+    .sidebar-item.active {
+        background: rgba(108,76,241,.12);
+        color: white;
+    }
+
+    .sidebar-bottom {
+        margin-top: auto;
+    }
+
+    .dashboard-main {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+    }
+
+    .dashboard-topbar {
+        height: 72px;
+
+        padding: 0 30px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        border-bottom: 1px solid var(--border);
+
+        background: rgba(9,9,13,.85);
+
+        backdrop-filter: blur(15px);
+
+        position: sticky;
+        top: 0;
+
+        z-index: 100;
+    }
+
+    .dashboard-page {
+        padding: 35px;
+        max-width: 1500px;
+        margin: auto;
+    }
+
+    .welcome h1 {
+        font-size: 32px;
+        letter-spacing: -1.5px;
+    }
+
+    .welcome p {
+        color: var(--text-secondary);
+        margin-top: 5px;
+    }
+
+    .user-pill {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .avatar {
+        width: 38px;
+        height: 38px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary-light)
+        );
+
+        font-weight: 800;
+    }
+
+    /* =====================================
+       DASHBOARD CARDS
+    ===================================== */
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .stat-card {
+        padding: 22px;
+
+        background: var(--surface);
+
+        border: 1px solid var(--border);
+
+        border-radius: 16px;
+    }
+
+    .stat-label {
+        color: var(--text-muted);
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    .stat-value {
+        font-size: 29px;
+        font-weight: 800;
+    }
+
+    .stat-change {
+        margin-top: 8px;
+        color: var(--success);
+        font-size: 12px;
+    }
+
+    /* =====================================
+       DASHBOARD GRID
+    ===================================== */
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1.4fr .8fr;
+        gap: 18px;
+        margin-top: 18px;
+    }
+
+    .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 24px;
+    }
+
+    .panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 22px;
+    }
+
+    .panel-header h2 {
+        font-size: 18px;
+    }
+
+    .panel-header span {
+        color: var(--text-muted);
+        font-size: 12px;
+    }
+
+    /* =====================================
+       PROGRESS
+    ===================================== */
+
+    .progress-bar {
+        width: 100%;
+        height: 9px;
+
+        background: #22222B;
+
+        border-radius: 999px;
+
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        width: 25%;
+
+        background: linear-gradient(
+            90deg,
+            var(--primary-dark),
+            var(--primary-light)
+        );
+
+        border-radius: inherit;
+
+        transition: .4s;
+    }
+
+    .progress-percent {
+        margin-top: 10px;
+        color: var(--text-secondary);
+        font-size: 13px;
+    }
+
+    /* =====================================
+       JOURNEY
+    ===================================== */
+
+    .journey {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .journey-step {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+
+        padding: 13px;
+
+        border-radius: 11px;
+
+        background: var(--surface-2);
+    }
+
+    .journey-number {
+        width: 30px;
+        height: 30px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 8px;
+
+        background: #252530;
+
+        color: var(--text-muted);
+
+        font-size: 12px;
+    }
+
+    .journey-step.done .journey-number {
+        background: rgba(57,217,138,.12);
+        color: var(--success);
+    }
+
+    .journey-step.current .journey-number {
+        background: rgba(108,76,241,.18);
+        color: var(--primary-light);
+    }
+
+    .journey-info strong {
+        display: block;
+        font-size: 14px;
+    }
+
+    .journey-info small {
+        color: var(--text-muted);
+    }
+
+    /* =====================================
+       IDEAS
+    ===================================== */
+
+    .idea-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .idea-item {
+        padding: 15px;
+
+        background: var(--surface-2);
+
+        border-radius: 12px;
+
+        border: 1px solid transparent;
+    }
+
+    .idea-item:hover {
+        border-color: rgba(108,76,241,.25);
+    }
+
+    .idea-item strong {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .idea-item span {
+        color: var(--text-muted);
+        font-size: 12px;
+    }
+
+    /* =====================================
+       MODAL
+    ===================================== */
+
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+
+        background: rgba(0,0,0,.7);
+
+        backdrop-filter: blur(8px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 20px;
+
+        z-index: 2000;
+    }
+
+    .modal {
+        width: 100%;
+        max-width: 520px;
+
+        background: var(--surface);
+
+        border: 1px solid var(--border);
+
+        border-radius: 20px;
+
+        padding: 28px;
+
+        box-shadow: 0 30px 100px rgba(0,0,0,.5);
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 25px;
+    }
+
+    .modal-close {
+        border: 0;
+        background: transparent;
+        color: var(--text-muted);
+        font-size: 22px;
+    }
+
+    /* =====================================
+       MOBILE DASHBOARD
+    ===================================== */
+
+    .mobile-menu {
+        display: none;
+        border: 0;
+        background: transparent;
+        color: white;
+        font-size: 22px;
+    }
+
+    @media(max-width:1000px) {
+
+        .feature-grid {
+            grid-template-columns: repeat(2,1fr);
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2,1fr);
+        }
+
+        .dashboard-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media(max-width:750px) {
+
+        .nav-links {
+            display: none;
+        }
+
+        .sidebar {
+            transform: translateX(-100%);
+            transition: .25s;
+            z-index: 1500;
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .dashboard-main {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: block;
+        }
+
+        .dashboard-page {
+            padding: 22px 16px;
+        }
+
+        .dashboard-topbar {
+            padding: 0 16px;
+        }
+    }
+
+    @media(max-width:550px) {
+
+        .hero {
+            padding: 90px 5%;
+        }
+
+        .hero h1 {
+            letter-spacing: -4px;
+        }
+
+        section {
+            padding: 75px 5%;
+        }
+
+        .feature-grid,
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .auth-card {
+            padding: 25px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     LANDING PAGE
+====================================================== -->
+
+<div id="landing">
+
+<header class="navbar">
+
+    <a href="#" class="logo">
+        R2R <span>— Revenue to Revenue</span>
+    </a>
+
+    <nav class="nav-links">
+
+        <a href="#fonctionnement">
+            Fonctionnement
+        </a>
+
+        <a href="#fonctionnalites">
+            Fonctionnalités
+        </a>
+
+        <a href="#revenus">
+            Revenus
+        </a>
+
+    </nav>
+
+    <div class="nav-actions">
+
+        <button
+            class="btn btn-secondary"
+            onclick="showAuth('login')"
+        >
+            Connexion
+        </button>
+
+        <button
+            class="btn btn-primary"
+            onclick="showAuth('signup')"
+        >
+            Commencer
+        </button>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+
+                <span class="badge-dot"></span>
+
+                Revenue to Revenue
+
+            </div>
+
+            <h1>
+
+                Une idée.<br>
+
+                <span class="gradient-text">
+                    Plusieurs revenus.
+                </span>
+
+            </h1>
+
+            <p class="hero-description">
+
+                R2R t’aide à passer d’une idée à ta première
+                source de revenus en ligne, puis à développer
+                les suivantes.
+
+            </p>
+
+            <div class="hero-buttons">
+
+                <button
+                    class="btn btn-primary"
+                    onclick="showAuth('signup')"
+                >
+                    Créer mon compte →
+                </button>
+
+                <a
+                    href="#fonctionnement"
+                    class="btn btn-secondary"
+                >
+                    Découvrir R2R
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="fonctionnement">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Le système R2R
+            </div>
+
+            <h2 class="section-title">
+                De l’idée aux revenus.
+            </h2>
+
+            <p class="section-description">
+                Structure ton parcours et transforme
+                progressivement une idée en activité numérique.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <article class="feature-card">
+
+                <div class="feature-number">
+                    01
+                </div>
+
+                <h3>
+                    Idée
+                </h3>
+
+                <p>
+                    Définis ton idée et identifie
+                    son potentiel économique.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-number">
+                    02
+                </div>
+
+                <h3>
+                    Offre
+                </h3>
+
+                <p>
+                    Transforme ton idée en offre
+                    concrète et commercialisable.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-number">
+                    03
+                </div>
+
+                <h3>
+                    Lancement
+                </h3>
+
+                <p>
+                    Mets ton offre sur le marché
+                    et obtiens tes premiers résultats.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-number">
+                    04
+                </div>
+
+                <h3>
+                    Revenus
+                </h3>
+
+                <p>
+                    Suis tes revenus et développe
+                    progressivement de nouvelles sources.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <section id="fonctionnalites" class="features">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Fonctionnalités
+            </div>
+
+            <h2 class="section-title">
+                Ton activité numérique,
+                au même endroit.
+            </h2>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <article class="feature-card">
+
+                <div class="feature-number">
+                    01
+                </div>
+
+                <h3>
+                    Création d’idée
+                </h3>
+
+                <p>
+                    Structure et sauvegarde tes idées
+                    de business.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-number">
+                    02
+                </div>
+
+                <h3>
+                    Parcours R2R
+                </h3>
+
+                <p>
+                    Suis ton évolution de l’idée
+                    jusqu’aux revenus.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-number">
+                    03
+                </div>
+
+                <h3>
+                    Sources de revenus
+                </h3>
+
+                <p>
+                    Centralise et suis les différentes
+                    sources de revenus.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-number">
+                    04
+                </div>
+
+                <h3>
+                    Dashboard
+                </h3>
+
+                <p>
+                    Un espace central pour piloter
+                    ton activité.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-number">
+                    05
+                </div>
+
+                <h3>
+                    Progression
+                </h3>
+
+                <p>
+                    Visualise les étapes franchies
+                    et les prochaines actions.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-number">
+                    06
+                </div>
+
+                <h3>
+                    Sauvegarde
+                </h3>
+
+                <p>
+                    Tes données sont sauvegardées
+                    localement dans ton navigateur.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <section id="revenus">
+
+        <div class="section-header">
+
+            <div class="section-label">
+                Revenue to Revenue
+            </div>
+
+            <h2 class="section-title">
+                Ne t’arrête pas
+                au premier revenu.
+            </h2>
+
+            <p class="section-description">
+                Transforme progressivement tes ressources,
+                tes offres et tes premiers revenus en nouvelles
+                opportunités.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div>
+        © 2026 R2R — Revenue to Revenue
+    </div>
+
+    <div>
+        Créer. Lancer. Générer. Développer.
+    </div>
+
+</footer>
+
+</div>
+
+<!-- =====================================================
+     AUTHENTIFICATION
+====================================================== -->
+
+<div id="authScreen" class="auth-screen hidden">
+
+<div class="auth-card">
+
+    <div class="auth-logo">
+        R2R
+    </div>
+
+    <p class="auth-subtitle">
+        Revenue to Revenue
+    </p>
+
+
+    <div class="auth-tabs">
+
+        <button
+            id="loginTab"
+            class="auth-tab active"
+            onclick="switchAuth('login')"
+        >
+            Connexion
+        </button>
+
+        <button
+            id="signupTab"
+            class="auth-tab"
+            onclick="switchAuth('signup')"
+        >
+            Inscription
+        </button>
+
+    </div>
+
+
+    <!-- LOGIN -->
+
+    <form id="loginForm">
+
+        <div class="form-group">
+
+            <label>
+                Email
+            </label>
+
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="toi@email.com"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Mot de passe
+            </label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="••••••••"
+                required
+            >
+
+        </div>
+
+
+        <button
+            class="btn btn-primary auth-submit"
+            type="submit"
+        >
+            Se connecter
+        </button>
+
+    </form>
+
+
+    <!-- SIGNUP -->
+
+    <form
+        id="signupForm"
+        class="hidden"
+    >
+
+        <div class="form-group">
+
+            <label>
+                Prénom
+            </label>
+
+            <input
+                id="signupName"
+                type="text"
+                placeholder="Joshiiro"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Email
+            </label>
+
+            <input
+                id="signupEmail"
+                type="email"
+                placeholder="toi@email.com"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Mot de passe
+            </label>
+
+            <input
+                id="signupPassword"
+                type="password"
+                placeholder="Minimum 6 caractères"
+                minlength="6"
+                required
+            >
+
+        </div>
+
+
+        <button
+            class="btn btn-primary auth-submit"
+            type="submit"
+        >
+            Créer mon compte
+        </button>
+
+    </form>
+
+
+    <div
+        id="authMessage"
+        class="auth-message"
+    ></div>
+
+
+    <button
+        class="btn btn-ghost"
+        style="width:100%;margin-top:10px;"
+        onclick="backToLanding()"
+    >
+        ← Retour au site
+    </button>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+     DASHBOARD
+====================================================== -->
+
+<div
+    id="dashboardApp"
+    class="dashboard-app hidden"
+>
+
+<div class="dashboard-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside
+        id="sidebar"
+        class="sidebar"
+    >
+
+        <div class="sidebar-logo">
+            R<span>2R</span>
+        </div>
+
+
+        <div class="sidebar-menu">
+
+            <button
+                class="sidebar-item active"
+                onclick="showDashboardPage('overview',this)"
+            >
+                🏠 Vue d’ensemble
+            </button>
+
+            <button
+                class="sidebar-item"
+                onclick="showDashboardPage('ideas',this)"
+            >
+                💡 Mes idées
+            </button>
+
+            <button
+                class="sidebar-item"
+                onclick="showDashboardPage('journey',this)"
+            >
+                🧭 Parcours R2R
+            </button>
+
+            <button
+                class="sidebar-item"
+                onclick="showDashboardPage('revenues',this)"
+            >
+                💰 Revenus
+            </button>
+
+        </div>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                class="sidebar-item"
+                onclick="logout()"
+            >
+                🚪 Déconnexion
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="dashboard-main">
+
+
+        <header class="dashboard-topbar">
+
+            <button
+                class="mobile-menu"
+                onclick="toggleSidebar()"
+            >
+                ☰
+            </button>
+
+
+            <div></div>
+
+
+            <div class="user-pill">
+
+                <span id="topbarName">
+                    Joshiiro
+                </span>
+
+                <div
+                    class="avatar"
+                    id="avatar"
+                >
+                    J
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <div class="dashboard-page">
+
+
+            <!-- ==================================
+                 OVERVIEW
+            =================================== -->
+
+            <div id="page-overview">
+
+                <div class="welcome">
+
+                    <div class="welcome">
+
+    <div
+        style="
+            display:flex;
+            align-items:center;
+            gap:10px;
+            margin-bottom:12px;
+            color:var(--primary-light);
+            font-size:12px;
+            font-weight:800;
+            letter-spacing:1.8px;
+            text-transform:uppercase;
+        "
+    >
+        <span
+            style="
+                width:7px;
+                height:7px;
+                border-radius:50%;
+                background:var(--success);
+                box-shadow:0 0 12px rgba(57,217,138,.6);
+            "
+        ></span>
+
+        Revenue to Revenue
+    </div>
+
+
+    <h1
+        style="
+            font-size:clamp(34px,4vw,48px);
+            line-height:1.05;
+            letter-spacing:-2.5px;
+            font-weight:850;
+        "
+    >
+        Bonjour
+        <span
+            id="welcomeName"
+            style="
+                background:linear-gradient(
+                    90deg,
+                    #FFFFFF,
+                    #A996FF
+                );
+                -webkit-background-clip:text;
+                -webkit-text-fill-color:transparent;
+            "
+        >
+            Utilisateur
+        </span>
+        <span style="font-size:.75em;">👋</span>
+    </h1>
+
+
+    <p
+        style="
+            margin-top:12px;
+            max-width:650px;
+            color:var(--text-secondary);
+            font-size:16px;
+            line-height:1.7;
+        "
+    >
+        Bienvenue dans ton espace <strong style="color:white;">R2R.</strong>
+    </p>
+
+</div>
+
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-label">
+                            Idées
+                        </div>
+
+                        <div
+                            id="statIdeas"
+                            class="stat-value"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-change">
+                            Opportunités disponibles
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-label">
+                            Revenus
+                        </div>
+
+                        <div
+                            id="statRevenue"
+                            class="stat-value"
+                        >
+                            0 €
+                        </div>
+
+                        <div class="stat-change">
+                            Total enregistré
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-label">
+                            Progression
+                        </div>
+
+                        <div
+                            id="statProgress"
+                            class="stat-value"
+                        >
+                            25%
+                        </div>
+
+                        <div class="stat-change">
+                            Parcours R2R
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-label">
+                            Sources
+                        </div>
+
+                        <div
+                            id="statSources"
+                            class="stat-value"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-change">
+                            Sources de revenus
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-grid">
+
+
+                    <!-- JOURNEY -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <h2>
+                                Ton parcours
+                            </h2>
+
+                            <span>
+                                R2R
+                            </span>
+
+                        </div>
+
+
+                        <div class="journey">
+
+                            <div
+                                id="journeyIdea"
+                                class="journey-step current"
+                            >
+
+                                <div class="journey-number">
+                                    01
+                                </div>
+
+                                <div class="journey-info">
+
+                                    <strong>
+                                        Idée
+                                    </strong>
+
+                                    <small>
+                                        Définir ton opportunité
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="journeyOffer"
+                                class="journey-step"
+                            >
+
+                                <div class="journey-number">
+                                    02
+                                </div>
+
+                                <div class="journey-info">
+
+                                    <strong>
+                                        Offre
+                                    </strong>
+
+                                    <small>
+                                        Construire ton offre
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="journeyLaunch"
+                                class="journey-step"
+                            >
+
+                                <div class="journey-number">
+                                    03
+                                </div>
+
+                                <div class="journey-info">
+
+                                    <strong>
+                                        Lancement
+                                    </strong>
+
+                                    <small>
+                                        Mettre ton offre sur le marché
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                id="journeyRevenue"
+                                class="journey-step"
+                            >
+
+                                <div class="journey-number">
+                                    04
+                                </div>
+
+                                <div class="journey-info">
+
+                                    <strong>
+                                        Revenus
+                                    </strong>
+
+                                    <small>
+                                        Développer tes sources
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PROGRESS -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <h2>
+                                Progression
+                            </h2>
+
+                            <span id="progressLabel">
+                                25%
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress-bar">
+
+                            <div
+                                id="progressFill"
+                                class="progress-fill"
+                            ></div>
+
+                        </div>
+
+
+                        <div
+                            id="progressText"
+                            class="progress-percent"
+                        >
+                            Commence par créer ta première idée.
+                        </div>
+
+
+                        <button
+                            class="btn btn-primary"
+                            style="margin-top:25px;width:100%;"
+                            onclick="openIdeaModal()"
+                        >
+                            + Créer une idée
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="panel"
+                    style="margin-top:18px;"
+                >
+
+                    <div class="panel-header">
+
+                        <h2>
+                            Dernières idées
+                        </h2>
+
+                        <button
+                            class="btn btn-secondary"
+                            onclick="showDashboardPage('ideas')"
+                        >
+                            Voir tout
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="recentIdeas"
+                        class="idea-list"
+                    >
+
+                        <div
+                            style="color:var(--text-muted);"
+                        >
+                            Aucune idée pour le moment.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================
+                 IDEAS
+            =================================== -->
+
+            <div
+                id="page-ideas"
+                class="hidden"
+            >
+
+                <div class="welcome">
+
+                    <h1>
+                        💡 Mes idées
+                    </h1>
+
+                    <p>
+                        Transforme tes idées en opportunités.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="btn btn-primary"
+                    style="margin-top:25px;"
+                    onclick="openIdeaModal()"
+                >
+                    + Nouvelle idée
+                </button>
+
+
+                <div
+                    id="allIdeas"
+                    class="idea-list"
+                    style="margin-top:20px;"
+                ></div>
+
+            </div>
+
+
+            <!-- ==================================
+                 JOURNEY
+            =================================== -->
+
+            <div
+                id="page-journey"
+                class="hidden"
+            >
+
+                <div class="welcome">
+
+                    <h1>
+                        🧭 Parcours R2R
+                    </h1>
+
+                    <p>
+                        Ton chemin de l’idée jusqu’aux revenus.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="panel"
+                    style="margin-top:25px;"
+                >
+
+                    <div class="journey">
+
+                        <div
+                            class="journey-step"
+                            id="journeyPageIdea"
+                        >
+
+                            <div class="journey-number">
+                                01
+                            </div>
+
+                            <div class="journey-info">
+
+                                <strong>
+                                    Idée
+                                </strong>
+
+                                <small>
+                                    Définir ce que tu veux construire.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="journey-step"
+                            id="journeyPageOffer"
+                        >
+
+                            <div class="journey-number">
+                                02
+                            </div>
+
+                            <div class="journey-info">
+
+                                <strong>
+                                    Offre
+                                </strong>
+
+                                <small>
+                                    Transformer l’idée en offre.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="journey-step"
+                            id="journeyPageLaunch"
+                        >
+
+                            <div class="journey-number">
+                                03
+                            </div>
+
+                            <div class="journey-info">
+
+                                <strong>
+                                    Lancement
+                                </strong>
+
+                                <small>
+                                    Mettre l’offre devant le marché.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="journey-step"
+                            id="journeyPageRevenue"
+                        >
+
+                            <div class="journey-number">
+                                04
+                            </div>
+
+                            <div class="journey-info">
+
+                                <strong>
+                                    Revenus
+                                </strong>
+
+                                <small>
+                                    Générer puis développer les revenus.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================
+                 REVENUES
+            =================================== -->
+
+            <div
+                id="page-revenues"
+                class="hidden"
+            >
+
+                <div class="welcome">
+
+                    <h1>
+                        💰 Revenus
+                    </h1>
+
+                    <p>
+                        Suis les revenus générés par ton activité.
+                    </p>
+
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-label">
+                            Revenus totaux
+                        </div>
+
+                        <div
+                            id="revenuePageTotal"
+                            class="stat-value"
+                        >
+                            0 €
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-label">
+                            Sources
+                        </div>
+
+                        <div
+                            id="revenuePageSources"
+                            class="stat-value"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="panel"
+                    style="margin-top:20px;"
+                >
+
+                    <div class="panel-header">
+
+                        <h2>
+                            Ajouter un revenu
+                        </h2>
+
+                    </div>
+
+
+                    <form id="revenueForm">
+
+                        <div class="form-group">
+
+                            <label>
+                                Source
+                            </label>
+
+                            <input
+                                id="revenueSource"
+                                type="text"
+                                placeholder="Ex : Formation, prestation, SaaS..."
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Montant (€)
+                            </label>
+
+                            <input
+                                id="revenueAmount"
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                placeholder="100"
+                                required
+                            >
+
+                        </div>
+
+
+                        <button
+                            class="btn btn-primary"
+                            type="submit"
+                        >
+                            Ajouter le revenu
+                        </button>
+
+                    </form>
+
+
+                    <div
+                        id="revenueList"
+                        class="idea-list"
+                        style="margin-top:25px;"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+     IDEA MODAL
+====================================================== -->
+
+<div
+    id="ideaModal"
+    class="modal-overlay hidden"
+>
+
+<div class="modal">
+
+    <div class="modal-header">
+
+        <h2>
+            💡 Nouvelle idée
+        </h2>
+
+        <button
+            class="modal-close"
+            onclick="closeIdeaModal()"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <form id="ideaForm">
+
+        <div class="form-group">
+
+            <label>
+                Nom de l’idée
+            </label>
+
+            <input
+                id="ideaName"
+                type="text"
+                placeholder="Ex : Agence de création de contenu"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Description
+            </label>
+
+            <textarea
+                id="ideaDescription"
+                rows="4"
+                placeholder="Décris rapidement ton idée..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <div
+            style="
+                display:flex;
+                gap:10px;
+                justify-content:flex-end;
+            "
+        >
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeIdeaModal()"
+            >
+                Annuler
+            </button>
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Enregistrer
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div>
+
+<script>
+
+    /* ==========================================
+       STORAGE
+    ========================================== */
+
+    const USERS_KEY = "r2r_users";
+    const CURRENT_USER_KEY = "r2r_current_user";
+
+
+    function getUsers() {
+
+        return JSON.parse(
+            localStorage.getItem(USERS_KEY) || "[]"
+        );
+
+    }
+
+
+    function saveUsers(users) {
+
+        localStorage.setItem(
+            USERS_KEY,
+            JSON.stringify(users)
+        );
+
+    }
+
+
+    function getCurrentUser() {
+
+        return JSON.parse(
+            localStorage.getItem(CURRENT_USER_KEY) || "null"
+        );
+
+    }
+
+
+    function saveCurrentUser(user) {
+
+        localStorage.setItem(
+            CURRENT_USER_KEY,
+            JSON.stringify(user)
+        );
+
+    }
+
+
+    function userDataKey() {
+
+        const user = getCurrentUser();
+
+        return user
+            ? `r2r_data_${user.email}`
+            : null;
+
+    }
+
+
+    function getData() {
+
+        const key = userDataKey();
+
+        if (!key) return {
+            ideas: [],
+            revenues: []
+        };
+
+        return JSON.parse(
+            localStorage.getItem(key) ||
+            JSON.stringify({
+                ideas: [],
+                revenues: []
+            })
+        );
+
+    }
+
+
+    function saveData(data) {
+
+        const key = userDataKey();
+
+        if (!key) return;
+
+        localStorage.setItem(
+            key,
+            JSON.stringify(data)
+        );
+
+    }
+
+
+    /* ==========================================
+       LANDING / AUTH
+    ========================================== */
+
+    function showAuth(type) {
+
+        document
+            .getElementById("landing")
+            .classList.add("hidden");
+
+        document
+            .getElementById("authScreen")
+            .classList.remove("hidden");
+
+        switchAuth(type);
+
+    }
+
+
+    function backToLanding() {
+
+        document
+            .getElementById("authScreen")
+            .classList.add("hidden");
+
+        document
+            .getElementById("landing")
+            .classList.remove("hidden");
+
+        document
+            .getElementById("authMessage")
+            .textContent = "";
+
+    }
+
+
+    function switchAuth(type) {
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const signupForm =
+            document.getElementById("signupForm");
+
+        const loginTab =
+            document.getElementById("loginTab");
+
+        const signupTab =
+            document.getElementById("signupTab");
+
+        if (type === "login") {
+
+            loginForm.classList.remove("hidden");
+            signupForm.classList.add("hidden");
+
+            loginTab.classList.add("active");
+            signupTab.classList.remove("active");
+
+        } else {
+
+            loginForm.classList.add("hidden");
+            signupForm.classList.remove("hidden");
+
+            loginTab.classList.remove("active");
+            signupTab.classList.add("active");
+
+        }
+
+        document
+            .getElementById("authMessage")
+            .textContent = "";
+
+    }
+
+
+    /* ==========================================
+       SIGNUP
+    ========================================== */
+
+    document
+        .getElementById("signupForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const name =
+                document.getElementById("signupName").value.trim();
+
+            const email =
+                document.getElementById("signupEmail").value
+                .trim()
+                .toLowerCase();
+
+            const password =
+                document.getElementById("signupPassword").value;
+
+            const users = getUsers();
+
+            const existing =
+                users.find(user => user.email === email);
+
+            if (existing) {
+
+                document
+                    .getElementById("authMessage")
+                    .textContent =
+                    "Un compte existe déjà avec cet email.";
+
+                return;
+
+            }
+
+            const user = {
+                name,
+                email,
+                password
+            };
+
+            users.push(user);
+
+            saveUsers(users);
+
+            saveCurrentUser({
+                name,
+                email
+            });
+
+            saveData({
+                ideas: [],
+                revenues: []
+            });
+
+            openDashboard();
+
+        });
+
+
+    /* ==========================================
+       LOGIN
+    ========================================== */
+
+    document
+        .getElementById("loginForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const email =
+                document.getElementById("loginEmail").value
+                .trim()
+                .toLowerCase();
+
+            const password =
+                document.getElementById("loginPassword").value;
+
+            const users = getUsers();
+
+            const user =
+                users.find(
+                    item =>
+                        item.email === email &&
+                        item.password === password
+                );
+
+            if (!user) {
+
+                document
+                    .getElementById("authMessage")
+                    .textContent =
+                    "Email ou mot de passe incorrect.";
+
+                return;
+
+            }
+
+            saveCurrentUser({
+                name: user.name,
+                email: user.email
+            });
+
+            openDashboard();
+
+        });
+
+
+    /* ==========================================
+       DASHBOARD
+    ========================================== */
+
+    function openDashboard() {
+
+        document
+            .getElementById("landing")
+            .classList.add("hidden");
+
+        document
+            .getElementById("authScreen")
+            .classList.add("hidden");
+
+        document
+            .getElementById("dashboardApp")
+            .classList.remove("hidden");
+
+        updateDashboard();
+
+    }
+
+
+    function logout() {
+
+        localStorage.removeItem(
+            CURRENT_USER_KEY
+        );
+
+        document
+            .getElementById("dashboardApp")
+            .classList.add("hidden");
+
+        document
+            .getElementById("landing")
+            .classList.remove("hidden");
+
+    }
+
+
+    /* ==========================================
+       DASHBOARD NAVIGATION
+    ========================================== */
+
+    function showDashboardPage(page, button) {
+
+        const pages = [
+            "overview",
+            "ideas",
+            "journey",
+            "revenues"
+        ];
+
+        pages.forEach(name => {
+
+            document
+                .getElementById(`page-${name}`)
+                .classList.add("hidden");
+
+        });
+
+        document
+            .getElementById(`page-${page}`)
+            .classList.remove("hidden");
+
+
+        document
+            .querySelectorAll(".sidebar-item")
+            .forEach(item => {
+                item.classList.remove("active");
+            });
+
+
+        if (button) {
+
+            button.classList.add("active");
+
+        }
+
+
+        updateDashboard();
+
+    }
+
+
+    function toggleSidebar() {
+
+        document
+            .getElementById("sidebar")
+            .classList.toggle("open");
+
+    }
+
+
+    /* ==========================================
+       IDEAS
+    ========================================== */
+
+    function openIdeaModal() {
+
+        document
+            .getElementById("ideaModal")
+            .classList.remove("hidden");
+
+    }
+
+
+    function closeIdeaModal() {
+
+        document
+            .getElementById("ideaModal")
+            .classList.add("hidden");
+
+    }
+
+
+    document
+        .getElementById("ideaForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const data = getData();
+
+            const idea = {
+
+                id: Date.now(),
+
+                name:
+                    document
+                    .getElementById("ideaName")
+                    .value
+                    .trim(),
+
+                description:
+                    document
+                    .getElementById("ideaDescription")
+                    .value
+                    .trim(),
+
+                createdAt:
+                    new Date().toLocaleDateString("fr-FR")
+
+            };
+
+
+            data.ideas.unshift(idea);
+
+            saveData(data);
+
+            this.reset();
+
+            closeIdeaModal();
+
+            updateDashboard();
+
+        });
+
+
+    /* ==========================================
+       REVENUES
+    ========================================== */
+
+    document
+        .getElementById("revenueForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const data = getData();
+
+            const source =
+                document
+                .getElementById("revenueSource")
+                .value
+                .trim();
+
+            const amount =
+                Number(
+                    document
+                    .getElementById("revenueAmount")
+                    .value
+                );
+
+
+            data.revenues.unshift({
+
+                id: Date.now(),
+
+                source,
+
+                amount,
+
+                date:
+                    new Date().toLocaleDateString("fr-FR")
+
+            });
+
+
+            saveData(data);
+
+            this.reset();
+
+            updateDashboard();
+
+        });
+
+
+    /* ==========================================
+       UPDATE DASHBOARD
+    ========================================== */
+
+    function updateDashboard() {
+
+        const user = getCurrentUser();
+
+        if (!user) return;
+
+        const data = getData();
+
+
+        /* USER */
+
+        document
+            .getElementById("welcomeName")
+            .textContent = user.name;
+
+        document
+            .getElementById("topbarName")
+            .textContent = user.name;
+
+        document
+            .getElementById("avatar")
+            .textContent =
+            user.name.charAt(0).toUpperCase();
+
+
+        /* STATS */
+
+        const totalRevenue =
+            data.revenues.reduce(
+                (sum, item) =>
+                    sum + Number(item.amount),
+                0
+            );
+
+
+        document
+    .getElementById("statIdeas")
+    .textContent =
+    "326";
+
+
+        document
+    .getElementById("statRevenue")
+    .textContent =
+    "9 000 €";
+
+
+        document
+    .getElementById("statSources")
+    .textContent =
+    "108";
+
+
+        /* PROGRESS */
+
+        let progress = 57;
+
+        if (data.ideas.length > 0) {
+            progress = 50;
+        }
+
+        if (
+            data.ideas.length > 0 &&
+            data.revenues.length > 0
+        ) {
+            progress = 100;
+        }
+
+
+        document
+            .getElementById("statProgress")
+            .textContent =
+            progress + "%";
+
+        document
+            .getElementById("progressLabel")
+            .textContent =
+            progress + "%";
+
+        document
+            .getElementById("progressFill")
+            .style.width =
+            progress + "%";
+
+
+        document
+            .getElementById("progressText")
+            .textContent =
+            progress === 57
+                ? "Commence par créer ta première idée."
+                : progress === 50
+                ? "Ton idée existe. Passe maintenant à l’étape suivante."
+                : "Tu as commencé à générer des revenus. Continue à développer ton système.";
+
+
+        updateJourney(progress);
+
+        updateIdeas(data);
+
+        updateRevenues(data);
+
+    }
+
+
+    function updateJourney(progress) {
+
+        const steps = [
+
+            ["journeyIdea",1],
+            ["journeyOffer",2],
+            ["journeyLaunch",3],
+            ["journeyRevenue",4],
+
+            ["journeyPageIdea",1],
+            ["journeyPageOffer",2],
+            ["journeyPageLaunch",3],
+            ["journeyPageRevenue",4]
+
+        ];
+
+
+        steps.forEach(([id, step]) => {
+
+            const element =
+                document.getElementById(id);
+
+            if (!element) return;
+
+            element.classList.remove(
+                "done",
+                "current"
+            );
+
+
+            const threshold =
+                step * 25;
+
+
+            if (progress >= threshold) {
+
+                element.classList.add("done");
+
+            } else if (
+                progress + 25 >= threshold
+            ) {
+
+                element.classList.add("current");
+
+            }
+
+        });
+
+    }
+
+
+    function updateIdeas(data) {
+
+        const recent =
+            document.getElementById("recentIdeas");
+
+        const all =
+            document.getElementById("allIdeas");
+
+
+        if (data.ideas.length === 0) {
+
+            recent.innerHTML =
+                `<div style="color:var(--text-muted)">
+                    Aucune idée pour le moment.
+                </div>`;
+
+            all.innerHTML =
+                `<div class="panel">
+                    <p style="color:var(--text-muted)">
+                        Tu n’as encore aucune idée.
+                    </p>
+                </div>`;
+
+            return;
+
+        }
+
+
+        const render =
+            data.ideas.map(idea => `
+
+                <div class="idea-item">
+
+                    <strong>
+                        ${escapeHTML(idea.name)}
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(idea.description)}
+                        · ${idea.createdAt}
+                    </span>
+
+                </div>
+
+            `).join("");
+
+
+        recent.innerHTML =
+            data.ideas
+                .slice(0,3)
+                .map(idea => `
+
+                    <div class="idea-item">
+
+                        <strong>
+                            ${escapeHTML(idea.name)}
+                        </strong>
+
+                        <span>
+                            ${escapeHTML(idea.description)}
+                        </span>
+
+                    </div>
+
+                `)
+                .join("");
+
+
+        all.innerHTML = render;
+
+    }
+
+
+    function updateRevenues(data) {
+
+        const total =
+            data.revenues.reduce(
+                (sum,item) =>
+                    sum + Number(item.amount),
+                0
+            );
+
+
+        document
+            .getElementById("revenuePageTotal")
+            .textContent =
+            "9 000 €";
+            formatMoney(total);
+
+
+        document
+            .getElementById("revenuePageSources")
+            .textContent =
+            "108";
+            data.revenues.length;
+
+
+        const list =
+            document.getElementById("revenueList");
+
+
+        if (data.revenues.length === 0) {
+
+            list.innerHTML =
+                `<div style="color:var(--text-muted)">
+                    Aucun revenu enregistré.
+                </div>`;
+
+            return;
+
+        }
+
+
+        list.innerHTML =
+            data.revenues.map(item => `
+
+                <div class="idea-item">
+
+                    <strong>
+                        ${escapeHTML(item.source)}
+                    </strong>
+
+                    <span>
+                        ${formatMoney(item.amount)}
+                        · ${item.date}
+                    </span>
+
+                </div>
+
+            `).join("");
+
+    }
+
+
+    /* ==========================================
+       HELPERS
+    ========================================== */
+
+    function formatMoney(value) {
+
+        return new Intl.NumberFormat(
+            "fr-FR",
+            {
+                style: "currency",
+                currency: "EUR"
+            }
+        ).format(value);
+
+    }
+
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replaceAll("&","&amp;")
+            .replaceAll("<","&lt;")
+            .replaceAll(">","&gt;")
+            .replaceAll('"',"&quot;")
+            .replaceAll("'","&#039;");
+
+    }
+
+
+    /* ==========================================
+       AUTO LOGIN
+    ========================================== */
+
+    window.addEventListener("DOMContentLoaded", function() {
+
+        const currentUser =
+            getCurrentUser();
+
+        if (currentUser) {
+
+            openDashboard();
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
